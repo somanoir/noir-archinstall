@@ -25,6 +25,32 @@ error_print () {
     echo -e "${BOLD}${BRED}[ ${BBLUE}•${BRED} ] $1${RESET}"
 }
 
+# Virtualization check (function).
+virt_check () {
+    hypervisor=$(systemd-detect-virt)
+    case $hypervisor in
+        kvm )   info_print "KVM has been detected, setting up guest tools."
+                pacstrap /mnt qemu-guest-agent &>/dev/null
+                systemctl enable qemu-guest-agent --root=/mnt &>/dev/null
+                ;;
+        vmware  )   info_print "VMWare Workstation/ESXi has been detected, setting up guest tools."
+                    pacstrap /mnt open-vm-tools >/dev/null
+                    systemctl enable vmtoolsd --root=/mnt &>/dev/null
+                    systemctl enable vmware-vmblock-fuse --root=/mnt &>/dev/null
+                    ;;
+        oracle )    info_print "VirtualBox has been detected, setting up guest tools."
+                    pacstrap /mnt virtualbox-guest-utils &>/dev/null
+                    systemctl enable vboxservice --root=/mnt &>/dev/null
+                    ;;
+        microsoft ) info_print "Hyper-V has been detected, setting up guest tools."
+                    pacstrap /mnt hyperv &>/dev/null
+                    systemctl enable hv_fcopy_daemon --root=/mnt &>/dev/null
+                    systemctl enable hv_kvp_daemon --root=/mnt &>/dev/null
+                    systemctl enable hv_vss_daemon --root=/mnt &>/dev/null
+                    ;;
+    esac
+}
+
 # Selecting a kernel to install (function).
 kernel_selector () {
     info_print "List of kernels:"
@@ -259,7 +285,7 @@ info_print "Formatting the EFI Partition as FAT32."
 mkfs.fat -F 32 "$ESP" &>/dev/null
 
 # Formatting the ROOT as EXT4.
-mkfs.ext4 -f "$ROOT"
+mkfs.ext4 "$ROOT"
 mount "$ROOT" /mnt
 
 mkdir /mnt/boot
@@ -291,6 +317,9 @@ cat > /mnt/etc/hosts <<EOF
 ::1         localhost
 127.0.1.1   $hostname.localdomain   $hostname
 EOF
+
+# Virtualization check.
+virt_check
 
 # Setting up the network.
 network_installer
