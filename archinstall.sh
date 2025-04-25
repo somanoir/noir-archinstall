@@ -402,6 +402,7 @@ packages_apps=(
   "keepassxc"
   "calibre"
   "discord"
+  "filezilla"
   "filelight"
   "gnome-disk-utility"
   "okular"
