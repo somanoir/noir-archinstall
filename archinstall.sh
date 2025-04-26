@@ -252,6 +252,7 @@ packages_common_utils=(
   "stow"
   "nwg_look"
   "zsh"
+  "starship"
   "fzf"
   "zoxide"
   "lsd"
