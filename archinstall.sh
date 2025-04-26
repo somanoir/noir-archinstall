@@ -232,6 +232,7 @@ installPackages() {
 packages_common_utils=(
   "git"
   "git-lfs"
+  "lazygit"
   "intel-ucode"
   "pacman-contrib"
   "curl"
