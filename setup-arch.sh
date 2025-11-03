@@ -86,6 +86,8 @@ packages_common_utils=(
   "tela-circle-icon-theme-dracula"
   "qt5ct-kde"
   "qt6ct-kde"
+  "xdg-desktop-portal-gtk"
+  "xdg-desktop-portal-hyprland"
 )
 
 packages_common_x11=(
