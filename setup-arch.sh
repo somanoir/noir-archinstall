@@ -49,14 +49,18 @@ packages_common_utils=(
   "pipewire-audio"
   "wireplumber"
   "btop"
-  "network-manager-applet"
-  "python3-pip"
+  "python-pip"
+  "python-pipx"
   "python3-gobject"
   "gtk4"
   "fastfetch"
   "bluez"
   "bluez-utils"
-  "blueman"
+  "rofi-bluetooth-git"
+  "networkmanager-dmenu"
+  "openvpn"
+  "networkmanager-openvpn"
+  "rofi-power-menu"
   "yt-dlp"
   "ly"
   "ntfs-3g"
@@ -74,8 +78,6 @@ packages_common_utils=(
   "ripgrep"
   "reflector"
   "pkgfile"
-  "openvpn"
-  "networkmanager-openvpn"
   "gvfs"
   "gvfs-mtp"
   "gvfs-smb"
@@ -111,11 +113,11 @@ packages_common_wayland=(
   "qt6-wayland"
   "egl-wayland"
   "wlr-randr"
-  "wlogout"
   "wl-clipboard"
   "wl-clip-persist"
   "cliphist"
   "rofi-wayland"
+  "rofi"
   "waybar"
   "mako"
   "swww"
@@ -138,6 +140,7 @@ packages_niri=(
   "niri"
   "xwayland-satellite"
   "xdg-desktop-portal-gnome"
+  "hyprlock"
 )
 
 packages_awesome=(
@@ -154,6 +157,7 @@ packages_i3=(
 
 packages_apps=(
   "ghostty"
+  "alacritty"
   "firefox"
   "librewolf-bin"
   "neovim"
@@ -279,6 +283,9 @@ install_window_managers() {
 install_misc() {
   # Ollama
   curl -fsSL https://ollama.com/install.sh | sh
+
+  # Rofi Power Menu
+  pipx install git+https://github.com/cjbassi/rofi-power
 }
 
 install_microcode() {
