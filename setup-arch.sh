@@ -26,6 +26,7 @@ packages_common_utils=(
   "luarocks"
   "nodejs"
   "npm"
+  "uv"
   "podman"
   "pkgconf-pkg-config"
   "stow"
